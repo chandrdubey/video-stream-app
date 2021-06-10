@@ -27,7 +27,7 @@ db.once('open', function () {
 // // });
 app.use(express.json()); //it used to convert the body of a requset in json format
 app.use(express.urlencoded({ extended: true }));
-// app.use('*', (req, res)=>{
+// app.use('*', (req, reAQQ11Q2A1212QQ21QA1Q1   s)=>{
 //     res.send("hello");
 // }); 
 app.use('/', routes);

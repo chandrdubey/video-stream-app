@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>App</title>
+  </head>
+  <body>
+    <div>
+        <h2>form</h2>
+        <form  action="/form" method="POST" >
+                <% qustions.forEach(function(qustion,index){ %>
+                    <label> <%= qustion%> </label>
+                    <div>
+                        <input type="text"  name ="answers[<%= index%>]" placeholder="full name" required>
+                    </div>  
+                    
+                                    
+              <%    } ) %> 
+              <div>
+                <input type="submit" value="submit"> 
+            </div> 
+        </form>
+        
+    </div>
+  </body>
+</html>
