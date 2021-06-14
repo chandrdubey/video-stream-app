@@ -17,10 +17,10 @@ const userSchema = mongoose.Schema({
     answers: [
         {
             qustion: {
-                type: string
+                type: String
             },
             answer: {
-                type: string
+                type: String
             }
         }
     ],

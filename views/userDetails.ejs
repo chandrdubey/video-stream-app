@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>App</title>
+  </head>
+  <body>
+    <div>
+        <h2>name :  <%= user.name %>  </h2>        
+        <h2>username :  <%= user.username %>  </h2> 
+        <a href="/users/:id/form"> form details</a>
+        <h4>upload video</h4>
+        <form action="/users/:id/video" method="POST"  enctype="multipart/form-data">
+
+                <input type="file"  name="video" accept="video/*" required> 
+                <div>
+                    <button>save</button> 
+
+                </div>
+          
+              
+        </form>
+        <video id ="video" width="320" height="240" controls autoplay>
+          <source src="/users/:id/video"  type="video/mp4">
+       </video>
+        <form action=""></form>
+    </div>
+  </body>
+</html>
