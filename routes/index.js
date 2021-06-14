@@ -10,12 +10,16 @@ const jwtToken = 'key';
 router.get('/', (req, res) =>{
     res.render("login");
 });
-
+// SIGNUP FORM
 router.post('/signup', (req, res)=>{ 
     console.log(req.body);
     const {username, fullname, password}   = req.body;
+    console.log(username);
+    if(!username){
+        return res.send("data undefined");
+    }
     User.findOne({ username: username }, async (err, user) => {
-      if (err) {
+      try{ if (err) {
         console.log(`there is an error ${error}`);
       }
       if (user) {
@@ -37,22 +41,28 @@ router.post('/signup', (req, res)=>{
             password: hashPassword,
           });
           var token = jwt.sign(
-            { id: user._id, email: user.email, name: user.name },
-            key,{expiresIn:"7d"}
+            { id: user._id},
+            jwtToken,{expiresIn:"7d"}
           );
         //   res.status(200).json({
         //     token
         //     }
         //   });
         req.user = user;
+        console.log(req.user);
         res.redirect('/users/:id/details');
         } catch (err) {
           res.status(404).send(err);
         }
       }
+    }catch (err) {
+        res.status(404).send(err);
+      }
+     
     
-    })
+   })
 })
+// LOGIN FORM
 router.post('/login', async(req, res)=>{
     try{
    //checkking if email exist or not
@@ -79,8 +89,8 @@ router.post('/login', async(req, res)=>{
      });
    }
    var token = jwt.sign(
-     { id: user._id, email: user.email, name: user.name },
-     key, {expiresIn:"1h"}
+     { id: user._id, },
+     jwtToken, {expiresIn:"1h"}
    );
    // console.log( process.env.JWT_SECRET);
    // console.log("you are logged in !");
@@ -112,7 +122,7 @@ router.post('/form', (req, res)=>{
 
 
 router.get('/users/:id/form', (req, res)=>{
-    const qustionAndAnswers = [{qustion : '1',answer : '2'}];
+    const qustionAndAnswers = [{qustion : '1',answer : 'asdasdasd'}, {qustion : '2', answer : "sdasdasd"}];
     
     res.render("showForm",  {qustionAndAnswers})
 })
@@ -136,7 +146,7 @@ router.get('/users/:id/video', function(req, res) {
     const stat = fs.statSync(path)
     const fileSize = stat.size
     //console.log(fileSize)
-    const range = req.headers.range
+   // const range = req.headers.range
     console.log(req.headers.range);
     if (range) {
       const parts = range.replace(/bytes=/, "").split("-")
@@ -144,9 +154,9 @@ router.get('/users/:id/video', function(req, res) {
       const chunksize = 10 ** 7;
 
       const end = Math.min(start + chunksize, fileSize-1)
-        console.log( "parts:" + parts);
-        console.log("end:" +end)
-        console.log("start:" +start);
+        // console.log( "parts:" + parts);
+        // console.log("end:" +end)
+        // console.log("start:" +start);
        
       if(start >= fileSize) {
         res.status(416).send('Requested range not satisfiable\n'+start+' >= '+fileSize);
